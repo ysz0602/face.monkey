@@ -21,7 +21,7 @@ class PCHeader extends React.Component {
     this.setState({modalVisible:value})
   }
   handleClick(e){
-    if(e.key='register') {
+    if(e.key == 'register') {
       this.setState({current:'register'})
       this.setModalVisible((true))
     }else {
@@ -36,11 +36,18 @@ class PCHeader extends React.Component {
     this.props.form.validateFields((err, formData) => {
       if (!err) {
         console.log(formData);
-        fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=register&username=userName&password=password&r_userName='+formData.r_userName+'&r_password='+formData.r_password+'&r_confirmPassword='+formData.r_confirmPassword,myFetchOptions)
+        fetch('http://newsapi.gugujiankong.com/Handler.ashx?action='+this.state.action
+        +'&username='+formData.userName+'&password='+formData.password+'&r_userName='
+        +formData.r_userName+'&r_password='+formData.r_password+
+        '&r_confirmPassword='+formData.r_confirmPassword,myFetchOptions)
         .then(response => response.json())
         .then(json => {
-          this.setState({userNickName:json.UserNickName,userid:json.UserId})
+          console.log(json)
+          this.setState({userNickName:json.NickUserName,userid:json.UserId})
         });
+        if(this.state.action == 'login') {
+          this.setState({hasLogined:true});
+        }
         message.success('请求成功!');
         this.setModalVisible(false);
       }
@@ -49,14 +56,14 @@ class PCHeader extends React.Component {
   render(){
     const {getFieldDecorator} = this.props.form;
     const userShow = this.state.hasLogined
-    ? <Menu.Item key="layout" className="register">
+    ? <Menu.Item key="logout" className="register">
       <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
       &nbsp;&nbsp;
-      <Link target="_blank">
-        <Button type="dashed" htmlType="button">
-          个人中心
-        </Button>
-      </Link>
+      {/* <Link target="_blank"> */}
+      <Button type="dashed" htmlType="button">
+        个人中心
+      </Button>
+      {/* </Link> */}
       &nbsp;&nbsp;
       <Button type="ghost" htmlType="button">
         退出
@@ -113,7 +120,7 @@ class PCHeader extends React.Component {
               cancelText="关闭"
             >
               <Tabs type="card">
-                <TabPane tab="注册" key="">
+                <TabPane tab="注册" key="2">
                   <Form onSubmit={this.handleSubmit.bind(this)}>
                     {/* <FormItem label="账户">
                       <Input placeholder="请输入您的账号" {...getFieldDecorator(r_userName)}/>
