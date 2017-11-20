@@ -43,7 +43,7 @@ class PCHeader extends React.Component {
         .then(response => response.json())
         .then(json => {
           console.log(json)
-          this.setState({userNickName:json.NickUserName,userid:json.UserId})
+          this.setState({userNickName: json.NickUserName,userid:json.UserId})
         });
         if(this.state.action == 'login') {
           this.setState({hasLogined:true});
@@ -52,6 +52,13 @@ class PCHeader extends React.Component {
         this.setModalVisible(false);
       }
     });
+  }
+  callback(key) {
+    if(key == 1) {
+      this.setState({action:'login'});
+    }else if(key == 2){
+      this.setState({action:'register'});
+    }
   }
   render(){
     const {getFieldDecorator} = this.props.form;
@@ -119,7 +126,22 @@ class PCHeader extends React.Component {
               okText="确认"
               cancelText="关闭"
             >
-              <Tabs type="card">
+              <Tabs type="card" onChange={this.callback.bind(this)}>
+                <TabPane tab="登录" key="1">
+                  <Form onSubmit={this.handleSubmit.bind(this)}>
+                    {getFieldDecorator('userName', {
+                      rules: [{ required: true, message: '请输入您的账号!' }]
+                    })(
+                      <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="用户名" />
+                    )}
+                    {getFieldDecorator('password', {
+                      rules: [{ required: true, message: '请输入密码!' }]
+                    })(
+                      <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="密码" />
+                    )}
+                    <Button type="primary" htmlType="submit">登录</Button>
+                  </Form>
+                </TabPane>
                 <TabPane tab="注册" key="2">
                   <Form onSubmit={this.handleSubmit.bind(this)}>
                     {/* <FormItem label="账户">
