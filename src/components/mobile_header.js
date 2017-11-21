@@ -40,7 +40,7 @@ class MobileHeader extends React.Component {
         .then(response => response.json())
         .then(json => {
           console.log(json)
-          this.setState({userNickName: json.NickUserName, userid:json.UserId})
+          this.setState({userNickName: json.NickUserName, userid:json.UserId});
         });
         if(this.state.action == 'login') {
           this.setState({hasLogined:true});

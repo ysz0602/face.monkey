@@ -17,6 +17,12 @@ class PCHeader extends React.Component {
       userid:0
     }
   }
+  componentWillMount(){
+    if(localStorage.userid != ''){
+      this.setState({hasLogined:true});
+      this.setState({userNickName:localStorage.userNickName,userid:localStorage.userid});
+    }
+  }
   setModalVisible(value){
     this.setState({modalVisible:value})
   }
@@ -43,7 +49,9 @@ class PCHeader extends React.Component {
         .then(response => response.json())
         .then(json => {
           console.log(json)
-          this.setState({userNickName: json.NickUserName,userid:json.UserId})
+          this.setState({userNickName: json.NickUserName,userid:json.UserId});
+          localStorage.userid = json.UserId;
+          localStorage.userNickName = json.NickUserName;
         });
         if(this.state.action == 'login') {
           this.setState({hasLogined:true});
@@ -60,6 +68,11 @@ class PCHeader extends React.Component {
       this.setState({action:'register'});
     }
   }
+  logout(){
+    localStorage.userid = '';
+    localStorage.userNickName = '';
+    this.setState({hasLogined:false});
+  }
   render(){
     const {getFieldDecorator} = this.props.form;
     const userShow = this.state.hasLogined
@@ -72,7 +85,7 @@ class PCHeader extends React.Component {
       </Button>
       {/* </Link> */}
       &nbsp;&nbsp;
-      <Button type="ghost" htmlType="button">
+      <Button type="ghost" htmlType="button" onClick={this.logout.bind(this)}>
         退出
       </Button>
     </Menu.Item>
