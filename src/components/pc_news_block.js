@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card} from 'antd';
-// import {Router, Route, Link, browerHistory} from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 export default class PCNewsBlock extends React.Component {
   constructor() {
@@ -11,7 +11,7 @@ export default class PCNewsBlock extends React.Component {
   }
   componentWillMount() {
     var myFetchOptions = {
-      method:' GET'
+      method: 'GET'
     }
     fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=' + this.props.type + '&count=' + this.props.count, myFetchOptions)
     .then(response => response.json())
@@ -29,13 +29,15 @@ export default class PCNewsBlock extends React.Component {
       </li>
     ))
     :
-    '没有架子啊到任何新闻';
+    '没有加载到任何内容';
     return (
       <div className="topNewsList">
         <Card>
-          <ul>
-            { newsList }
-          </ul>
+          <Router>
+            <ul>
+              { newsList }
+            </ul>
+          </Router>
         </Card>
       </div>
     )
