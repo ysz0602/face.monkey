@@ -1,4 +1,5 @@
 import React from 'react';
+import QRCode from 'qrcode.react';
 import { Row, Col } from 'antd';
 import { Menu, Icon, Tabs, message, Form, Input, Button, CheckBox,Modal } from 'antd';
 const FormItem = Form.Item;
@@ -187,7 +188,15 @@ class PCHeader extends React.Component {
               </Tabs>
             </Modal>
           </Col>
-          <Col span={2}></Col>
+          <Col span={2}>
+            <QRCode
+              value={'https://github.com/ysz0602/Face.monkey'}
+              size={64}
+              bgColor={'#ffffff'}
+              fgColor={'#31698e'}
+              level={'H'}
+            />
+          </Col>
         </Row>
       </header>
     )
