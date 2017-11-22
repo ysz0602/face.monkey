@@ -9,7 +9,7 @@ export default class MobileList extends React.Component {
       news:''
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     var myFetchOptions = {
       method: 'GET'
     }
@@ -45,15 +45,13 @@ export default class MobileList extends React.Component {
     '没有加载到任何内容';
     return (
       <div>
-        <Row>
-          <Col span={24}>
-            <Router>
-              <div>
-                {newsList}
-              </div>
-            </Router>
+        <Router>
+          <Row>
+            <Col span={24}>
+              {newsList}
             </Col>
           </Row>
+        </Router>
       </div>
     )
   }
