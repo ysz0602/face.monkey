@@ -1,6 +1,6 @@
 import React from 'react';
 import {Row, Col} from 'antd';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { HashRouter as Router, Link } from 'react-router-dom';
 
 export default class MobileList extends React.Component {
   constructor() {
@@ -45,13 +45,15 @@ export default class MobileList extends React.Component {
     '没有加载到任何内容';
     return (
       <div>
-        <Router>
-          <Row>
-            <Col span={24}>
-              {newsList}
+        <Row>
+          <Col span={24}>
+            <Router>
+              <div>
+                {newsList}
+              </div>
+            </Router>
             </Col>
           </Row>
-        </Router>
       </div>
     )
   }
