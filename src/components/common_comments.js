@@ -49,7 +49,7 @@ class CommonComments extends React.Component {
      //收藏成功后进行全局的提醒
      notification['success']({
        message: 'ReactNews提醒',
-       description: '收藏此文章'
+       description: '收藏此文章成功'
      })
    })
  }
