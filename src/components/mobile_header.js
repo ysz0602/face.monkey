@@ -5,6 +5,7 @@ const FormItem = Form.Item;
 const SubMenu = Menu.SubMenu;
 const TabPane = Tabs.TabPane;
 const MenuItemGroup = Menu.ItemGroup;
+import { HashRouter as Router, Route, Link } from 'react-router-dom';
 class MobileHeader extends React.Component {
   constructor() {
     super();
@@ -62,12 +63,15 @@ class MobileHeader extends React.Component {
   }
   render(){
     const {getFieldDecorator} = this.props.form;
-    const userShow = this.state.hasLogined ?
-    // <Link>
-      <Icon type="inbox"/>
-      // </Link>
+    const userShow = this.state.hasLogined
+      ?
+      <Router>
+        <Link to={'/usercenter'}>
+          <Icon type="inbox"/>
+        </Link>
+      </Router>
       :
-    <Icon type="setting" onClick={this.login.bind(this)}/>
+      <Icon type="setting" onClick={this.login.bind(this)}/>
     return (
       <div id="mobileheader">
         <header>
